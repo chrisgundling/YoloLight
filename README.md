@@ -20,7 +20,7 @@ There are three ways to get started with darkflow.
 
 1. Just build the Cython extensions in place.
     ```
-    python3 setup.py build_ext --inplace
+    python setup.py build_ext --inplace
     ```
 
 2. Let pip install darkflow in dev mode (globally accessible but changes to the code immediately take effect)
@@ -32,29 +32,6 @@ There are three ways to get started with darkflow.
     ```
     pip install .
     ```
-
-### Design the net
-
-Skip this if you are working with one of the three original configurations since they are already there. Otherwise, see the following example:
-
-```python
-...
-
-[convolutional]
-batch_normalize = 1
-size = 3
-stride = 1
-pad = 1
-activation = leaky
-
-[maxpool]
-
-[connected]
-output = 4096
-activation = linear
-
-...
-```
 
 ### Flowing the graph using `flow`
 
@@ -154,4 +131,4 @@ During training, the script will occasionally save intermediate results into Ten
 
 Udacity Self Driving Car course have provided an annotated dataset of images that contains bounding boxes for five classes of objects: cars, pedestrians, truck, cyclists and traffic lights.
 
-A model cfg based on v1.1/tiny-yolo is provided for the udacity dataset in cfg/v1.1/tiny-yolov1-5c.cfg, with a TensorFlow checkpoint [here](https://drive.google.com/file/d/0B2K7eATT8qRARVVvcGtQUzRBV1E/view?usp=sharing). A v2 tiny-yolo configuration for the udacity dataset could be found under cfg/tiny-yolo-udacity.cfg, with checkpoint [here](https://drive.google.com/file/d/0B2K7eATT8qRAY0g0aWhjdkw0bEU/view?usp=sharing)
+A model cfg based on v1.1/tiny-yolo is provided for the udacity dataset in cfg/v1.1/tiny-yolov1-5c.cfg, with a TensorFlow checkpoint [here](https://drive.google.com/file/d/0B2K7eATT8qRARVVvcGtQUzRBV1E/view?usp=sharing). A v2 tiny-yolo configuration for the udacity dataset could be found under cfg/tiny-yolo-udacity.cfg, with checkpoint [here](https://drive.google.com/file/d/0B2K7eATT8qRAY0g0aWhjdkw0bEU/view?usp=sharing).
