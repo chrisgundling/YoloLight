@@ -1,40 +1,37 @@
-![img](cars.jpg)
+![img](./scripts/TLight-Detector.jpeg)
 
-This package is originally implmented by @[thtrieu](https://github.com/thtrieu). The original yolo models are trained against the annotated Udacity SDC datasets, and is now capable of detecting cars, pedestrians and traffic lights. The performance is not perfect, but it does run at real-time on a GTX1070. Looking forward to more improvements from the Udacity community.
+This package is originally implmented by @[thtrieu](https://github.com/thtrieu). The original yolo models are trained against the annotated Udacity SDC datasets, and is now capable of detecting cars, pedestrians and traffic lights. The YOLOv2 model was implemented as a ROS node and can be run in ROS at real time on a GPU. I was able to get 14 Hz on an Amazon AWS K520. Here is a screenshot of things running in ROS.
+
+![img](./scripts/TLight-Detector-ROS.png)
+
+## Intro
+
+Real-time object detection and classification. Paper: [version 1](https://arxiv.org/pdf/1506.02640.pdf), [version 2](https://arxiv.org/pdf/1612.08242.pdf).
+
+Read more about YOLO (in darknet) and download weight files [here](http://pjreddie.com/darknet/yolo/). In case the weight file cannot be found, I uploaded some of mine [here](https://drive.google.com/drive/folders/0B1tW_VtY7onidEwyQ2FtQVplWEU), which include `yolo-full` and `yolo-tiny` of v1.0, `tiny-yolo-v1.1` of v1.1 and `yolo`, `tiny-yolo-voc` of v2.
 
 ## Dependencies
 
-Python3, tensorflow 0.12, numpy, opencv 3.
+Python 2.7, tensorflow 1.0, numpy, opencv, ROS 1.0.
 
-## Update
+### Getting started
 
-@[Ryansun](https://github.com/ryansun1900) contributed the **training part of YOLO9000**. The project is now completed :)
+There are three ways to get started with darkflow.
 
-Someone's quick and 
-**Android demo is available on Tensorflow's official github!** [here](https://github.com/tensorflow/tensorflow/blob/master/tensorflow/examples/android/src/org/tensorflow/demo/TensorFlowYoloDetector.java)
+1. Just build the Cython extensions in place.
+    ```
+    python3 setup.py build_ext --inplace
+    ```
 
-**Demo in webcam is available!**. Use option `--demo camera` :)
+2. Let pip install darkflow in dev mode (globally accessible but changes to the code immediately take effect)
+    ```
+    pip install -e .
+    ```
 
-YOLOv1 is up and running:
-- v1.0: `yolo-full` 1.1GB, `yolo-small` 376MB, `yolo-tiny` 180MB
-- v1.1: `yolov1` 789MB, `tiny-yolo` 108MB, `tiny-coco` 268MB, `yolo-coco` 937MB
-
-YOLO9000 is up and running:
-- `yolo` 270MB, `tiny-yolo-voc` 63 MB.
-
-### Parsing the annotations
-
-Skip this if you are not training or fine-tuning anything (you simply want to forward flow a trained net)
-
-For example, if you want to work with only 3 classes `tvmonitor`, `person`, `pottedplant`; edit `labels.txt` as follows
-
-```
-tvmonitor
-person
-pottedplant
-```
-
-And that's it. `darkflow` will take care of the rest.
+3. Install with pip globally
+    ```
+    pip install .
+    ```
 
 ### Design the net
 
@@ -87,6 +84,47 @@ All input images from default folder `test/` are flowed through the net and pred
 ./flow --test test/ --model cfg/yolo-tiny.cfg --load bin/yolo-tiny.weights --gpu 1.0
 ```
 
+All input images from default folder `test/` are flowed through the net and predictions are put in `test/out/`. We can always specify more parameters for such forward passes, such as detection threshold, batch size, test folder, etc.
+
+```bash
+# Forward all images in test/ using tiny yolo and 100% GPU usage
+./flow --test test/ --model cfg/yolo-tiny.cfg --load bin/yolo-tiny.weights --gpu 1.0
+```
+json output can be generated with descriptions of the pixel location of each bounding box and the pixel location. Each prediction is stored in the `test/out` folder by default. An example json array is shown below.
+```bash
+# Forward all images in test/ using tiny yolo and JSON output.
+./flow --test test/ --model cfg/yolo-tiny.cfg --load bin/yolo-tiny.weights --json
+```
+JSON output:
+```json
+[{"label":"person", "confidence": 0.56, "topleft": {"x": 184, "y": 101}, "bottomright": {"x": 274, "y": 382}},
+{"label": "dog", "confidence": 0.32, "topleft": {"x": 71, "y": 263}, "bottomright": {"x": 193, "y": 353}},
+{"label": "horse", "confidence": 0.76, "topleft": {"x": 412, "y": 109}, "bottomright": {"x": 592,"y": 337}}]
+```
+ - label: self explanatory
+ - confidence: somewhere between 0 and 1 (how confident yolo is about that detection)
+ - topleft: pixel coordinate of top left corner of box.
+ - bottomright: pixel coordinate of bottom right corner of box.
+
+## Using darkflow from another python application
+
+Please note that `return_predict(img)` must take an `numpy.ndarray`. Your image must be loaded beforehand and passed to `return_predict(img)`. Passing the file path won't work.
+
+Result from `return_predict(img)` will be a list of dictionaries representing each detected object's values in the same format as the JSON output listed above.
+
+```python
+from darkflow.net.build import TFNet
+import cv2
+
+options = {"model": "cfg/yolo.cfg", "load": "bin/yolo.weights", "threshold": 0.1}
+
+tfnet = TFNet(options)
+
+imgcv = cv2.imread("./test/dog.jpg")
+result = tfnet.return_predict(imgcv)
+print(result)
+```
+
 ### Training new model
 
 Training is simple as you only have to add option `--train` like below:
@@ -117,28 +155,3 @@ During training, the script will occasionally save intermediate results into Ten
 Udacity Self Driving Car course have provided an annotated dataset of images that contains bounding boxes for five classes of objects: cars, pedestrians, truck, cyclists and traffic lights.
 
 A model cfg based on v1.1/tiny-yolo is provided for the udacity dataset in cfg/v1.1/tiny-yolov1-5c.cfg, with a TensorFlow checkpoint [here](https://drive.google.com/file/d/0B2K7eATT8qRARVVvcGtQUzRBV1E/view?usp=sharing). A v2 tiny-yolo configuration for the udacity dataset could be found under cfg/tiny-yolo-udacity.cfg, with checkpoint [here](https://drive.google.com/file/d/0B2K7eATT8qRAY0g0aWhjdkw0bEU/view?usp=sharing)
-
-To train tiny-yolov1.weights from for the udacity dataset, the following step was taken: 1. Download udacity dataset [here](http://bit.ly/udacity-annotations-autti) and download the following [annotation file](https://drive.google.com/file/d/0B2K7eATT8qRAZHlsdTVCNWVLVnM/view?usp=sharing).
-
-Create a small dataset with 3-5 images, and train via:
-```
-python3 flow --train --model cfg/v1.1/tiny-yolov1-5c.cfg --load tiny-yolov1.weights --dataset <folder to udacity images> --gpu 1.0
-```
-
-Reduce the learning rate in the cfg file, and continue training.
-```
-python3 flow --train --model cfg/v1.1/tiny-yolov1-5c.cfg --load -1 --dataset <folder to udacity images> --gpu 1.0
-```
-
-In general, above is a guideline to train against other datasets with different classes.
-
-### Migrating the graph to mobile devices (JAVA / C++ / Objective-C++)
-
-```bash
-## Saving the lastest checkpoint to protobuf file
-./flow --model cfg/yolo-3c.cfg --load -1 --savepb
-```
-
-For further usage of this protobuf file, please refer to the official documentation of `Tensorflow` on C++ API [_here_](https://www.tensorflow.org/versions/r0.9/api_docs/cc/index.html). To run it on, say, iOS application, simply add the file to Bundle Resources and update the path to this file inside source code.
-
-That's all.
