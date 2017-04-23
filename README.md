@@ -2,7 +2,7 @@
 
 This package is originally implmented by @[thtrieu](https://github.com/thtrieu). The original yolo models are trained against the annotated Udacity SDC datasets, and is now capable of detecting cars, pedestrians and traffic lights. The YOLOv2 model was implemented as a ROS node and can be run in ROS at real time on a GPU. I was able to get 14 Hz on an Amazon AWS K520. Here is a screenshot of things running in ROS.
 
-![img](./scripts/TLight-Detector-ROS.png)
+![img](./scripts/TLight_Detector_ROS.png)
 
 ## Intro
 
