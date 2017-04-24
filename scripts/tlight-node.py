@@ -11,7 +11,7 @@ from cv_bridge import CvBridge, CvBridgeError
 
 class TLightNode(object):
     def __init__(self, get_model_callback, model_callback):
-        rospy.init_node('tlightModel')
+        rospy.init_node('tlight_model')
         self.model = get_model_callback()
         self.get_model = get_model_callback
         self.predict = model_callback
