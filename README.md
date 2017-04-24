@@ -13,9 +13,9 @@ Real-time object detection and classification. Paper: [version 1](https://arxiv.
 
 Read more about YOLO (in darknet) and download the original weight files [here](http://pjreddie.com/darknet/yolo/). In case the weight file cannot be found, @[thtrieu](https://github.com/thtrieu) also uploaded some of his [here](https://drive.google.com/drive/folders/0B1tW_VtY7onidEwyQ2FtQVplWEU), which include `yolo-full` and `yolo-tiny` of v1.0, `tiny-yolo-v1.1` of v1.1 and `yolo`, `tiny-yolo-voc` of v2.
 
-### Training against Udacity Self Driving Datasets
+### Training Against Udacity Self Driving Datasets
 
-Udacity Self Driving Car course have provided an annotated dataset of images that contains bounding boxes for five classes of objects: cars, pedestrians, truck, cyclists and traffic lights.
+Udacity Self Driving Car Open Source Project have provided an annotated dataset of images that contains bounding boxes for five classes of objects: cars, pedestrians, truck, cyclists and traffic lights.
 
 The v2 tiny-yolo configuration that was used for this ROS node, trained on the udacity dataset can be found at cfg/tiny-yolo-udacity.cfg, with checkpoint [here](https://drive.google.com/file/d/0B2K7eATT8qRAY0g0aWhjdkw0bEU/view?usp=sharing).
 
@@ -41,7 +41,7 @@ After cloning this repository to the `src` location of your ROS catkin workspace
     ``` 
     
  ### Running stadalone (outside ROS) darkflow with `run.py`
-When running the `run.py` script, due to the difference in images that are read in from ROS, two changes within the code must be made.
+When performing a `python run.py`, due to the difference in images that are read in from ROS, two changes within the code must be made.
 
 On line 18-19 in `yolo_light/scripts/net/yolo/test.py` you must uncomment line 18 and comment line 19.
 
