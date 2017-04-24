@@ -1,4 +1,4 @@
-## Tiny-YOLOv2 ROS Node for Traffic Light Detection
+## Tiny-YOLO-v2 ROS Node for Traffic Light Detection
 This package was originally implemented by @[thtrieu](https://github.com/thtrieu). The original Tiny-YOLOv2 model was then trained against the annotated Udacity SDC datasets by several @[udacity](https://github.com/udacity/self-driving-car/tree/master/vehicle-detection/darkflow) open source community members. The model that they trained is capable of detecting cars, trucks, bicycles, pedestrians and traffic lights. This YOLOv2 model has been modified to be a traffic light detector and was implemented as a ROS node that can be run in ROS at real time on a GPU. I was able to get 14 Hz on an Amazon AWS K520 with the model running standalone and writing our images, so would expect significantly faster on a NVIDIA GTX 1070 or 1080 machine (will update once I can get an appropriate benchmark test). Here is an image of the model runnning standalone outside of ROS:
 
 ![img](./scripts/TLight-Detector.jpeg)
