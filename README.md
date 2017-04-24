@@ -26,7 +26,7 @@ The v2 tiny-yolo configuration that was used for this ROS node, trained on the u
 
 Python 2.7, tensorflow 1.0, numpy, opencv, ROS 1.0.
 
-## Getting things running
+## Getting Things Running
 
 After cloning this repository to the `src` location of your ROS catkin workspace you should perform the following operations. 
 
@@ -50,7 +50,7 @@ On line 18-19 in `yolo_light/scripts/net/yolo/test.py` you must uncomment line 1
 
 On line 74-75 in `yolo_light/scripts/net/flow.py` you must comment line 74 and uncomment line 75.
     
-## More info about other features of darkflow
+## More Info About Other Features of Darkflow
 Seperate from what is decribed above, for testing outside of ROS, you can also just run `flow`.
 ```bash
 # Have a look at its options
@@ -94,7 +94,7 @@ JSON output:
  - topleft: pixel coordinate of top left corner of box.
  - bottomright: pixel coordinate of bottom right corner of box.
 
-### For training new model
+### For Training New Models
 
 Training is simple as you only have to add option `--train` like below:
 
