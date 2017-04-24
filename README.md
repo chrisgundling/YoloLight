@@ -3,7 +3,9 @@ This package was originally implemented by @[thtrieu](https://github.com/thtrieu
 
 ![img](./scripts/TLight-Detector.jpeg)
 
-This repository can be used as a ROS package. It includes the python class `TLightNode` inside of `/scripts/tlight_node.py` that is run with `/scripts/darkflow.py`. The traffic light detector node will subscribe to an `Image` topic and the publish the same image with traffic lights detected using boxes and annotations. A screenshot of the ROS node operating within ROS is shown below, with original raw image on top and published image below. *Note that I only have ROS installed on a CPU at the momemt, so there is a significant lag in the published images. 
+This repository can be used as a ROS package. It includes the python class `TLightNode` inside of `/scripts/tlight_node.py` that is run with `/scripts/darkflow.py`. The traffic light detector node will subscribe to an `Image` topic and the publish the same image with traffic lights detected using boxes and annotations. A screenshot of the ROS node operating within ROS is shown below, with original raw image on top and published image below. 
+
+*Note that I only have ROS installed on a CPU at the moment, so there is a significant lag in the published images. 
 
 ![img](./scripts/TLight_Detector_ROS.png)
 
