@@ -46,12 +46,15 @@ Seperate from what is decribed above, for testing outside of ROS, you can also j
 # Have a look at its options
 ./flow --h
 ```
+
+All input images from default folder `test/` are flowed through the net and predictions are put in `test/out/`. We can always specify more parameters for such forward passes, such as detection threshold, batch size, test folder, etc.
+
 I used the following command for the current v2 tiny-yolo model:
 ```
-./flow --model cfg/tiny-yolo-udacity.cfg --load 8987 --gpu 1.0
+./flow --test test/ --model cfg/tiny-yolo-udacity.cfg --load 8987 --gpu 1.0
 ```
 
-First, let's take a closer look at one of a very useful option `--load`
+For some other functionality, consider the following:
 
 ```bash
 # 1. Load yolo-tiny.weights
@@ -65,19 +68,6 @@ First, let's take a closer look at one of a very useful option `--load`
 # this will print out which layers are reused, which are initialized
 ```
 
-All input images from default folder `test/` are flowed through the net and predictions are put in `test/out/`. We can always specify more parameters for such forward passes, such as detection threshold, batch size, test folder, etc.
-
-```bash
-# Forward all images in test/ using tiny yolo and 100% GPU usage
-./flow --test test/ --model cfg/yolo-tiny.cfg --load bin/yolo-tiny.weights --gpu 1.0
-```
-
-All input images from default folder `test/` are flowed through the net and predictions are put in `test/out/`. We can always specify more parameters for such forward passes, such as detection threshold, batch size, test folder, etc.
-
-```bash
-# Forward all images in test/ using tiny yolo and 100% GPU usage
-./flow --test test/ --model cfg/yolo-tiny.cfg --load bin/yolo-tiny.weights --gpu 1.0
-```
 json output can be generated with descriptions of the pixel location of each bounding box and the pixel location. Each prediction is stored in the `test/out` folder by default. An example json array is shown below.
 ```bash
 # Forward all images in test/ using tiny yolo and JSON output.
@@ -96,24 +86,11 @@ JSON output:
 
 ## Using darkflow from another python application
 
-Please note that `return_predict(img)` must take an `numpy.ndarray`. Your image must be loaded beforehand and passed to `return_predict(img)`. Passing the file path won't work.
+When running the `run.py` script, due to the difference in images that are read in, one small change within the code must be made.
 
-Result from `return_predict(img)` will be a list of dictionaries representing each detected object's values in the same format as the JSON output listed above.
+On line 
 
-```python
-from darkflow.net.build import TFNet
-import cv2
-
-options = {"model": "cfg/yolo.cfg", "load": "bin/yolo.weights", "threshold": 0.1}
-
-tfnet = TFNet(options)
-
-imgcv = cv2.imread("./test/dog.jpg")
-result = tfnet.return_predict(imgcv)
-print(result)
-```
-
-### Training new model
+### For training new model
 
 Training is simple as you only have to add option `--train` like below:
 
@@ -137,5 +114,3 @@ During training, the script will occasionally save intermediate results into Ten
 # Fine tuning yolo-tiny from the original one
 ./flow --train --model cfg/yolo-tiny.cfg --load bin/yolo-tiny.weights
 ```
-
-
