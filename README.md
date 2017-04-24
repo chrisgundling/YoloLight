@@ -7,35 +7,39 @@ This repository can be used as a ROS package. It includes the python class `TLig
 
 ![img](./scripts/TLight_Detector_ROS.png)
 
-## Intro
+## Background Info
 
 Real-time object detection and classification. Paper: [version 1](https://arxiv.org/pdf/1506.02640.pdf), [version 2](https://arxiv.org/pdf/1612.08242.pdf).
 
-Read more about YOLO (in darknet) and download weight files [here](http://pjreddie.com/darknet/yolo/). In case the weight file cannot be found, I uploaded some of mine [here](https://drive.google.com/drive/folders/0B1tW_VtY7onidEwyQ2FtQVplWEU), which include `yolo-full` and `yolo-tiny` of v1.0, `tiny-yolo-v1.1` of v1.1 and `yolo`, `tiny-yolo-voc` of v2.
+Read more about YOLO (in darknet) and download the original weight files [here](http://pjreddie.com/darknet/yolo/). In case the weight file cannot be found, @[thtrieu](https://github.com/thtrieu) also uploaded some of his [here](https://drive.google.com/drive/folders/0B1tW_VtY7onidEwyQ2FtQVplWEU), which include `yolo-full` and `yolo-tiny` of v1.0, `tiny-yolo-v1.1` of v1.1 and `yolo`, `tiny-yolo-voc` of v2.
+
+### Training against Udacity Self Driving Datasets
+
+Udacity Self Driving Car course have provided an annotated dataset of images that contains bounding boxes for five classes of objects: cars, pedestrians, truck, cyclists and traffic lights.
+
+The v2 tiny-yolo configuration that was used for this ROS node, trained on the udacity dataset can be found at cfg/tiny-yolo-udacity.cfg, with checkpoint [here](https://drive.google.com/file/d/0B2K7eATT8qRAY0g0aWhjdkw0bEU/view?usp=sharing).
 
 ## Dependencies
 
 Python 2.7, tensorflow 1.0, numpy, opencv, ROS 1.0.
 
-### Getting started
+### Getting things running
 
-There are three ways to get started with darkflow.
+After cloning this repository to your `src` location of ROS catkin workspace you should perform the following operations. 
 
-1. Just build the Cython extensions in place.
+1. Build the Cython extensions in place.
     ```
     python setup.py build_ext --inplace
     ```
-
-2. Let pip install darkflow in dev mode (globally accessible but changes to the code immediately take effect)
+2. You then have two options, you can run the detector standalone from ROS using the following command:
     ```
-    pip install -e .
+    python run.py
+    ``` 
+    or, after performing a ROS catkin_make, you can start the node using:
     ```
-
-3. Install with pip globally
-    ```
-    pip install .
-    ```
-
+    rosrun yolo_light darkflow.py
+    ``` 
+    
 ### Flowing the graph using `flow`
 
 ```bash
@@ -130,8 +134,4 @@ During training, the script will occasionally save intermediate results into Ten
 ./flow --train --model cfg/yolo-tiny.cfg --load bin/yolo-tiny.weights
 ```
 
-### Training against Udacity Self Driving Datasets
 
-Udacity Self Driving Car course have provided an annotated dataset of images that contains bounding boxes for five classes of objects: cars, pedestrians, truck, cyclists and traffic lights.
-
-A model cfg based on v1.1/tiny-yolo is provided for the udacity dataset in cfg/v1.1/tiny-yolov1-5c.cfg, with a TensorFlow checkpoint [here](https://drive.google.com/file/d/0B2K7eATT8qRARVVvcGtQUzRBV1E/view?usp=sharing). A v2 tiny-yolo configuration for the udacity dataset could be found under cfg/tiny-yolo-udacity.cfg, with checkpoint [here](https://drive.google.com/file/d/0B2K7eATT8qRAY0g0aWhjdkw0bEU/view?usp=sharing).
