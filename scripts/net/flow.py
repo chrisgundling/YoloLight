@@ -67,7 +67,7 @@ def train(self):
 
     if ckpt: _save_ckpt(self, *args)
 
-def return_predict(self, im, imname):
+def return_predict(self, im):
     assert isinstance(im, np.ndarray), \
 				'Image is not a np.ndarray'
     #print(im.shape)
