@@ -1,5 +1,6 @@
 ## Tiny-YOLO-v2 ROS Node for Traffic Light Detection
-Orig By @[thtrieu](https://github.com/thtrieu) and @[udacity](https://github.com/udacity/self-driving-car/tree/master/vehicle-detection/darkflow)
+Original By @[pjreddie](http://pjreddie.com/darknet/yolo/), @[thtrieu](https://github.com/thtrieu) and @[udacity](https://github.com/udacity/self-driving-car/tree/master/vehicle-detection/darkflow)
+
 Current By: Chris Gundling, chrisgundling@gmail.com
 
 ---
