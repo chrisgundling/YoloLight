@@ -5,7 +5,7 @@ import glob
 import time
 import numpy as np
 
-options = {"model": "cfg/tiny-yolo-udacity.cfg", "backup": "ckpt/","load": 8987, "gpu": 1.0}
+options = {"test": "test/", "model": "cfg/tiny-yolo-udacity.cfg", "backup": "ckpt/","load": 8987, "gpu": 1.0}
 
 tfnet = TFNet(options)
 
