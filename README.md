@@ -43,7 +43,7 @@ After cloning this repository to the `src` location of your ROS catkin workspace
     rosrun yolo_light darkflow.py
     ``` 
     
- ### Running stadalone (outside ROS) darkflow with `run.py`
+ ### Running Stadalone (Outside ROS) darkflow with `run.py`
 When performing a `python run.py`, due to the difference in images that are read in from ROS, two changes within the code must be made.
 
 On line 18-19 in `yolo_light/scripts/net/yolo/test.py` you must uncomment line 18 and comment line 19.
