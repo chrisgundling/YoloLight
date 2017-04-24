@@ -40,6 +40,11 @@ After cloning this repository to the `src` location of your ROS catkin workspace
     rosrun yolo_light darkflow.py
     ``` 
     
+ ### Running stadalone darkflow with `run.py`
+When running the `run.py` script, due to the difference in images that are read in from ROS, one small change within the code must be made.
+
+On line 18-19 in `yolo_light/scripts/net/yolo/test.py` you must uncomment line 18 and comment line 19.
+    
 ## More info about other features of darkflow
 Seperate from what is decribed above, for testing outside of ROS, you can also just run `flow`.
 ```bash
@@ -83,12 +88,6 @@ JSON output:
  - confidence: somewhere between 0 and 1 (how confident yolo is about that detection)
  - topleft: pixel coordinate of top left corner of box.
  - bottomright: pixel coordinate of bottom right corner of box.
-
-## Using darkflow from another python application
-
-When running the `run.py` script, due to the difference in images that are read in, one small change within the code must be made.
-
-On line 
 
 ### For training new model
 
