@@ -24,7 +24,7 @@ class TLightNode(object):
         #self.sub = rospy.Subscriber('/left_camera/image_color/compressed', CompressedImage, self.updateImage)
         self.sub = rospy.Subscriber('/image_raw', Image, self.updateImage)
         self.pub = rospy.Publisher('/out_image', Image, queue_size=1)
-        rospy.Timer(rospy.Duration(0.5), self.callbackImage)
+        rospy.Timer(rospy.Duration(0.03), self.callbackImage)
 
     def updateImage(self, img):
         arr = self.bridge.imgmsg_to_cv2(img,"bgr8") 
