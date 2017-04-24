@@ -22,11 +22,11 @@ class TLightNode(object):
         self.img_out = None
         self.image_lock = threading.RLock()
         #self.sub = rospy.Subscriber('/left_camera/image_color/compressed', CompressedImage, self.update_image)
-        self.sub = rospy.Subscriber('/image_raw', Image, self.update_image)
+        self.sub = rospy.Subscriber('/image_raw', Image, self.updateImage)
         self.pub = rospy.Publisher('/out_image', Image, queue_size=1)
-        rospy.Timer(rospy.Duration(0.5), self.callback_image)
+        rospy.Timer(rospy.Duration(0.5), self.callbackImage)
 
-    def update_image(self, img):
+    def updateImage(self, img):
         arr = self.bridge.imgmsg_to_cv2(img,"bgr8") 
         #np_arr = np.fromstring(img.data, np.uint8)
         #arr = cv2.imdecode(np_arr, cv2.IMREAD_COLOR)
@@ -51,7 +51,7 @@ class TLightNode(object):
             print(self.img_out.shape)
             self.image_lock.release()
 
-    def callback_image(self, event):
+    def callbackImage(self, event):
         if self.img_out is None:
             return
         self.pub.publish(self.bridge.cv2_to_imgmsg(self.img_out, "bgr8"))
