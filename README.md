@@ -23,7 +23,7 @@ The v2 tiny-yolo configuration that was used for this ROS node, trained on the u
 
 Python 2.7, tensorflow 1.0, numpy, opencv, ROS 1.0.
 
-### Getting things running
+## Getting things running
 
 After cloning this repository to the `src` location of your ROS catkin workspace you should perform the following operations. 
 
@@ -35,16 +35,20 @@ After cloning this repository to the `src` location of your ROS catkin workspace
     ```
     python run.py
     ``` 
-    or, after performing a ROS catkin_make, you can start the node using:
+    or, after performing a ROS `catkin_make`, you can start the node using:
     ```
     rosrun yolo_light darkflow.py
     ``` 
     
-### Flowing the graph using `flow`
-
+## More info about other features of darkflow
+Seperate from what is decribed above, for testing outside of ROS, you can also just run `flow`.
 ```bash
 # Have a look at its options
 ./flow --h
+```
+I used the following command for the current v2 tiny-yolo model:
+```
+./flow --model cfg/tiny-yolo-udacity.cfg --load 8987 --gpu 1.0
 ```
 
 First, let's take a closer look at one of a very useful option `--load`
