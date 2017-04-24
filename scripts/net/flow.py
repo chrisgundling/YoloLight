@@ -71,8 +71,8 @@ def return_predict(self, im, imname):
     assert isinstance(im, np.ndarray), \
 				'Image is not a np.ndarray'
     #print(im.shape)
-    #_, h, w, _ = im.shape
-    h, w, _ = im.shape
+    _, h, w, _ = im.shape
+    #h, w, _ = im.shape
     #print(h,w)
     imgcv = np.copy(im)
     im = self.framework.resize_input(im)
