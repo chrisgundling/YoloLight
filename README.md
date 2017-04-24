@@ -25,13 +25,13 @@ Python 2.7, tensorflow 1.0, numpy, opencv, ROS 1.0.
 
 ### Getting things running
 
-After cloning this repository to your `src` location of ROS catkin workspace you should perform the following operations. 
+After cloning this repository to the `src` location of your ROS catkin workspace you should perform the following operations. 
 
 1. Build the Cython extensions in place.
     ```
     python setup.py build_ext --inplace
     ```
-2. You then have two options, you can run the detector standalone from ROS using the following command:
+2. You then have two options, for testing, you can run the detector standalone from ROS using the following command:
     ```
     python run.py
     ``` 
