@@ -13,13 +13,13 @@ def process(model, img):
 
 
 def get_model():
-    options = {"model": "/home/chris/catkin_ws/src/yolo_light/scripts/cfg/tiny-yolo-udacity.cfg", "backup": "/home/chris/catkin_ws/src/yolo_light/scripts/ckpt/","load": 8987, "gpu": 1.0}
+    options = {"model": "./cfg/tiny-yolo-udacity.cfg", "backup": "./ckpt/","load": 8987, "gpu": 1.0}
     model = TFNet(options)
     return model
 
 
 def main():
-    parser = argparse.ArgumentParser(description='Model Runner')
+    parser = argparse.ArgumentParser(description='Script for running yolo_light node')
     args = parser.parse_args()
     node = TLightNode(lambda: get_model(), process)
     rospy.spin()
