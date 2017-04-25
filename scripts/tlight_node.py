@@ -16,21 +16,20 @@ class TLightNode(object):
         self.get_model = get_model_callback
         self.predict = model_callback
         self.bridge = CvBridge()
-        self.count = 0
         self.boxes = None
         self.img =  None
         self.img_out = None
         self.image_lock = threading.RLock()
-        #self.sub = rospy.Subscriber('/left_camera/image_color/compressed', CompressedImage, self.updateImage)
+        #self.sub = rospy.Subscriber('/left_camera/image_color/compressed', CompressedImage, self.updateImage) # Use for CompressedImage topic
         self.sub = rospy.Subscriber('/image_raw', Image, self.updateImage)
         self.pub = rospy.Publisher('/out_image', Image, queue_size=1)
         rospy.Timer(rospy.Duration(0.03), self.callbackImage)
 
     def updateImage(self, img):
         arr = self.bridge.imgmsg_to_cv2(img,"bgr8") 
+        # Uncomment following two lines for CompressedImage topic
         #np_arr = np.fromstring(img.data, np.uint8)
         #arr = cv2.imdecode(np_arr, cv2.IMREAD_COLOR)
-        #print(img.height,img.width) #raw image is of size (600,800)
         if self.image_lock.acquire(True):
             self.img = arr
             if self.model is None:
