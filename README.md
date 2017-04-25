@@ -26,7 +26,7 @@ Read more about YOLO (in darknet) and download the original weight files [here](
 
 Udacity Self Driving Car Open Source Project have provided an annotated dataset of images that contains bounding boxes for five classes of objects: cars, pedestrians, truck, cyclists and traffic lights.
 
-The v2 tiny-yolo configuration that was used for this ROS node, trained on the udacity dataset can be found at cfg/tiny-yolo-udacity.cfg, with checkpoint [here](https://drive.google.com/file/d/0B2K7eATT8qRAY0g0aWhjdkw0bEU/view?usp=sharing).
+The v2 tiny-yolo configuration that was used for this ROS node, trained on the udacity dataset can be found at cfg/tiny-yolo-udacity.cfg, with checkpoint [here](https://drive.google.com/file/d/0B2K7eATT8qRAY0g0aWhjdkw0bEU/view?usp=sharing). To run this this package you will need to download this checkpoint and put in a /scripts/ckpt/ directory.
 
 ## Dependencies
 
@@ -52,9 +52,9 @@ After cloning this repository to the `src` location of your ROS catkin workspace
  ### Running Stadalone (Outside ROS) darkflow with `run.py`
 When performing a `python run.py`, due to the difference in images that are read in from ROS, two changes within the code must be made.
 
-On line 18-19 in `yolo_light/scripts/net/yolo/test.py` you must uncomment line 18 and comment line 19.
+On line 17-18 in `yolo_light/scripts/net/yolo/test.py` you must uncomment line 17 and comment line 18.
 
-On line 74-75 in `yolo_light/scripts/net/flow.py` you must comment line 74 and uncomment line 75.
+On line 73-74 in `yolo_light/scripts/net/flow.py` you must comment line 73 and uncomment line 74.
     
 ## More Info About Other Features of Darkflow
 Seperate from what is decribed above, for testing outside of ROS, you can also just run `flow`.
