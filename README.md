@@ -5,7 +5,7 @@ Current By: Chris Gundling, chrisgundling@gmail.com
 
 ---
 
-Darkflow was originally implemented by @[thtrieu](https://github.com/thtrieu). The original Tiny-YOLOv2 model was then trained against the annotated Udacity SDC datasets by several @[udacity](https://github.com/udacity/self-driving-car/tree/master/vehicle-detection/darkflow) open source community members. The model that they trained is capable of detecting cars, trucks, bicycles, pedestrians and traffic lights. This YOLOv2 model has been modified to be a traffic light detector and was implemented as a ROS node that should be capable of real time operation in ROS on a high performance GPU. I was able to get 14 Hz on an Amazon AWS K520 with the model running standalone and writing out images, so would expect significantly faster on a NVIDIA GTX 1070 or 1080 machine (`/scripts/times.txt` currently shows stats on Hz, but will update once I can get an appropriate GPU benchmark test). Here is an image of the model runnning standalone outside of ROS and a youtube [video](https://youtu.be/rgt_ntJtq8w).
+Darkflow was originally implemented by @[thtrieu](https://github.com/thtrieu). The original Tiny-YOLOv2 model was then trained against the annotated Udacity SDC datasets by several @[udacity](https://github.com/udacity/self-driving-car/tree/master/vehicle-detection/darkflow) open source community members. The model that they trained is capable of detecting cars, trucks, bicycles, pedestrians and traffic lights. This YOLOv2 model has been modified to be a traffic light detector and was implemented as a ROS node that should be capable of real time operation in ROS on a high performance GPU. The package runs at 23Hz on a NVIDIA GTX 860M. (`/scripts/times.txt` currently shows benchmarking stats on Hz using an AWS K520, but will update once I can do more high performance GPU testing). Here is an image of the model runnning standalone outside of ROS and a youtube [video](https://youtu.be/rgt_ntJtq8w).
 
 ![img](./scripts/TLight-Detector.jpeg)
 
@@ -56,6 +56,8 @@ When performing a `python run.py`, due to the difference in images that are read
 On line 17-18 in `yolo_light/scripts/net/yolo/test.py` you must uncomment line 17 and comment line 18.
 
 On line 73-74 in `yolo_light/scripts/net/flow.py` you must comment line 73 and uncomment line 74.
+
+In return_predict function in `yolo_light/scripts/net/flow.py` add the input imname.
     
 ## More Info About Other Features of Darkflow
 Seperate from what is decribed above, for testing outside of ROS, you can also just run `flow`.
