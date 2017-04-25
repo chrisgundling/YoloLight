@@ -26,7 +26,7 @@ Read more about YOLO (in darknet) and download the original weight files [here](
 
 Udacity Self Driving Car Open Source Project have provided an annotated dataset of images that contains bounding boxes for five classes of objects: cars, pedestrians, truck, cyclists and traffic lights.
 
-The v2 tiny-yolo configuration that was used for this ROS node, trained on the udacity dataset can be found at cfg/tiny-yolo-udacity.cfg, with checkpoint [here](https://drive.google.com/file/d/0B2K7eATT8qRAY0g0aWhjdkw0bEU/view?usp=sharing). To run this this package you will need to download this checkpoint and put in a /scripts/ckpt/ directory.
+The v2 tiny-yolo configuration that was used for this ROS node, trained on the udacity dataset can be found at cfg/tiny-yolo-udacity.cfg, with checkpoint [here](https://drive.google.com/file/d/0B2K7eATT8qRAY0g0aWhjdkw0bEU/view?usp=sharing). To run this this package you will need to download this checkpoint and put files in a /scripts/ckpt/ directory.
 
 ## Dependencies
 
@@ -40,11 +40,12 @@ Create a ROS package called yolo_light using `catkin_create_pkg yolo_light std_m
     ```
     python setup.py build_ext --inplace
     ```
+    
 2. You then have two options, for testing, you can run the detector standalone from ROS using the following command:
     ```
     python run.py
     ``` 
-    or, after performing a ROS `catkin_make`, you can start the node using:
+    or, after performing a ROS `catkin_make`, you can start the node from the `/yolo_light/scripts` directory using:
     ```
     rosrun yolo_light darkflow.py
     ``` 
