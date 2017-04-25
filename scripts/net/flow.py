@@ -70,14 +70,11 @@ def train(self):
 def return_predict(self, im):
     assert isinstance(im, np.ndarray), \
 				'Image is not a np.ndarray'
-    #print(im.shape)
     _, h, w, _ = im.shape
     #h, w, _ = im.shape
-    #print(h,w)
     imgcv = np.copy(im)
     im = self.framework.resize_input(im)
     h2, w2, _ = im.shape
-    #print(h2,w2)
     this_inp = np.expand_dims(im, 0)
     feed_dict = {self.inp : this_inp}
 
@@ -114,7 +111,7 @@ def return_predict(self, im):
             cv2.rectangle(imgcv,(tmpBox[0], tmpBox[2]), (tmpBox[1], tmpBox[3]), colors[max_indx], thick)
             cv2.putText(imgcv, tmpBox[4], (tmpBox[0], tmpBox[2] - 12), 0, 1e-3 * h, colors[max_indx],thick//3)
             
-    #outfolder = '/home/chris/catkin_ws/src/yolo_light/scripts/test/out/'
+    #outfolder = './test/out/'
     #img_name = os.path.join(outfolder, imname.split('/')[-1]) 
 
     #cv2.imwrite(img_name, imgcv)
