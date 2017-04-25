@@ -21,7 +21,7 @@ class TLightNode(object):
         self.img_out = None
         self.image_lock = threading.RLock()
         #self.sub = rospy.Subscriber('/left_camera/image_color/compressed', CompressedImage, self.updateImage) # Use for CompressedImage topic
-        self.sub = rospy.Subscriber('/image_raw', Image, self.updateImage)
+        self.sub = rospy.Subscriber('/image_raw', Image, self.updateImage, queue_size=1)
         self.pub = rospy.Publisher('/out_image', Image, queue_size=1)
         rospy.Timer(rospy.Duration(0.03), self.callbackImage)
         
