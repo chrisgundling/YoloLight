@@ -14,12 +14,10 @@ def _fix(obj, dims, scale, offs):
 
 def resize_input(self, im):
 	h, w, c = self.meta['inp_size']
-        #print(h,w,c)
 	#imsz = cv2.resize(im, (w, h))
 	imsz = cv2.resize(im[0,:,:,:], (w, h))
         imsz = imsz / 255.
 	imsz = imsz[:,:,::-1]
-        #print(imsz)
 	return imsz
 
 def process_box(self, b, h, w, threshold):
@@ -74,7 +72,7 @@ def preprocess(self, im, allobj = None):
 
 	im = self.resize_input(im)
 	if allobj is None: return im
-	return im#, np.array(im) # for unit testing
+	return im #, np.array(im) # for unit testing
 
 def postprocess(self, net_out, im, save = True):
 	"""
