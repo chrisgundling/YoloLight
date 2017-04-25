@@ -34,7 +34,7 @@ Python 2.7, tensorflow 1.0, numpy, opencv, ROS 1.0.
 
 ## Getting Things Running
 
-Create a ROS package called yolo_light using `catkin_create_pkg yolo_light std_msgs rospy roscpp`. Clone this repository and copy all contents into the yolo_light package. You should then perform the following operations. 
+Create a ROS package called yolo_light using `catkin_create_pkg yolo_light`. Clone this repository and copy all contents into the yolo_light package. You should then perform the following operations. 
 
 1. Build the Cython extensions in place.
     ```
