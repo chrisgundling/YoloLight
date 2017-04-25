@@ -24,6 +24,7 @@ class TLightNode(object):
         self.sub = rospy.Subscriber('/image_raw', Image, self.updateImage)
         self.pub = rospy.Publisher('/out_image', Image, queue_size=1)
         rospy.Timer(rospy.Duration(0.03), self.callbackImage)
+        
 
     def updateImage(self, img):
         arr = self.bridge.imgmsg_to_cv2(img,"bgr8") 
@@ -49,6 +50,7 @@ class TLightNode(object):
 
             print(self.img_out.shape)
             self.image_lock.release()
+            
 
     def callbackImage(self, event):
         if self.img_out is None:
