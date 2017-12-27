@@ -12,7 +12,7 @@ def process(model, img):
     return result
 
 
-def get_model():
+def getModel():
     options = {"model": "./cfg/tiny-yolo-udacity.cfg", "backup": "./ckpt/","load": 8987, "gpu": 1.0}
     model = TFNet(options)
     return model
